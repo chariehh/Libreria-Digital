@@ -1,0 +1,43 @@
+SELECT * FROM USUARIO;
+
+SELECT * FROM LIBRO;
+SELECT idLIBRO, Titulo, imagen FROM libro;
+
+SELECT * FROM COMPRA;
+DESCRIBE libro;
+SELECT 
+    ENVIO.idENVIO,
+    ENVIO.Ciudad,
+    ENVIO.Direccion_envio,
+    USUARIO.nombre,
+    USUARIO.apellido
+FROM ENVIO
+JOIN COMPRA ON ENVIO.COMPRA_idCOMPRA = COMPRA.idCOMPRA
+JOIN USUARIO ON COMPRA.USUARIO_correo = USUARIO.correo;
+
+SELECT 
+    USUARIO.nombre,
+    USUARIO.apellido,
+    LIBRO.Titulo,
+    COMPRA.monto_pago
+FROM COMPRA
+JOIN USUARIO ON COMPRA.id_usuario = USUARIO.correo
+JOIN LIBRO ON COMPRA.id_libro = LIBRO.idLIBRO;
+
+SELECT DISTINCT Tipo_pago FROM COMPRA;
+
+SELECT 
+    USUARIO.nombre,
+    USUARIO.apellido,
+    COUNT(COMPRA.idCOMPRA) AS total_compras
+FROM USUARIO
+JOIN COMPRA ON USUARIO.correo = COMPRA.id_usuario
+GROUP BY USUARIO.correo, USUARIO.nombre, USUARIO.apellido;
+
+SELECT 
+    USUARIO.nombre,
+    USUARIO.apellido,
+    COUNT(COMPRA.idCOMPRA) AS total_compras
+FROM USUARIO
+JOIN COMPRA ON USUARIO.correo = COMPRA.id_usuario
+GROUP BY USUARIO.correo, USUARIO.nombre, USUARIO.apellido;
